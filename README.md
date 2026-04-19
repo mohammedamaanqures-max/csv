@@ -10,7 +10,7 @@ This repository now includes a complete, reproducible Modeling Part 1 workflow f
 - and report-ready output generation.
 
 ### File added
-- `/home/runner/work/csv/csv/modeling_part1.py`
+- `modeling_part1.py`
 
 ### Requirements
 Install required libraries:
@@ -22,14 +22,14 @@ pip install pandas scikit-learn imbalanced-learn matplotlib seaborn
 ### Example run
 
 ```bash
-python /home/runner/work/csv/csv/modeling_part1.py \
-  --data-path "/home/runner/work/csv/csv/Airline Passenger Satisfaction.csv" \
+python modeling_part1.py \
+  --data-path "Airline Passenger Satisfaction.csv" \
   --target-column satisfaction \
   --test-size 0.2 \
   --random-state 42 \
   --top-n 10 \
   --balancing-techniques smote,random_under \
-  --outputs-dir "/home/runner/work/csv/csv/outputs"
+  --outputs-dir outputs
 ```
 
 ### Outputs
@@ -40,5 +40,5 @@ Generated under `outputs/`:
 - `rf_importance_<technique>.png`
 
 ### Supporting docs
-- `/home/runner/work/csv/csv/REPORT.md`
-- `/home/runner/work/csv/csv/SLIDES_OUTLINE.md`
+- `REPORT.md`
+- `SLIDES_OUTLINE.md`

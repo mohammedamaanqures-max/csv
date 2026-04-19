@@ -16,6 +16,13 @@ def safe_average(values: list[int]) -> float:
     return round(sum(values) / len(values), 2) if values else 0.0
 
 
+def safe_int(value: str) -> int | None:
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
+
+
 def run_datamining(rows: list[dict[str, str]]) -> dict[str, object]:
     total = len(rows)
     satisfied = [r for r in rows if r["Satisfaction"] == "satisfied"]
@@ -34,10 +41,18 @@ def run_datamining(rows: list[dict[str, str]]) -> dict[str, object]:
         for cls, stats in class_breakdown.items()
     }
 
-    avg_delay_satisfied = safe_average([int(r["ArrivalDelayMinutes"]) for r in satisfied])
-    avg_delay_unsatisfied = safe_average(
-        [int(r["ArrivalDelayMinutes"]) for r in rows if r["Satisfaction"] != "satisfied"]
-    )
+    satisfied_delays = [
+        delay
+        for delay in (safe_int(r["ArrivalDelayMinutes"]) for r in satisfied)
+        if delay is not None
+    ]
+    unsatisfied_delays = [
+        delay
+        for delay in (safe_int(r["ArrivalDelayMinutes"]) for r in rows if r["Satisfaction"] != "satisfied")
+        if delay is not None
+    ]
+    avg_delay_satisfied = safe_average(satisfied_delays)
+    avg_delay_unsatisfied = safe_average(unsatisfied_delays)
 
     travel_type_counter = Counter(r["TypeOfTravel"] for r in satisfied)
 

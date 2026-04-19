@@ -55,6 +55,9 @@ def run_datamining(rows: list[dict[str, str]]) -> dict[str, object]:
     avg_delay_unsatisfied = safe_average(unsatisfied_delays)
 
     travel_type_counter = Counter(r["TypeOfTravel"] for r in satisfied)
+    top_satisfied_travel_type = None
+    if travel_type_counter:
+        top_satisfied_travel_type = travel_type_counter.most_common(1)[0][0]
 
     return {
         "records": total,
@@ -62,9 +65,7 @@ def run_datamining(rows: list[dict[str, str]]) -> dict[str, object]:
         "class_satisfaction": class_satisfaction,
         "avg_arrival_delay_satisfied": avg_delay_satisfied,
         "avg_arrival_delay_unsatisfied": avg_delay_unsatisfied,
-        "top_satisfied_travel_type": travel_type_counter.most_common(1)[0][0]
-        if travel_type_counter
-        else None,
+        "top_satisfied_travel_type": top_satisfied_travel_type,
     }
 
 
@@ -80,7 +81,9 @@ def main() -> None:
     for cls, rate in sorted(results["class_satisfaction"].items()):
         print(f"  - {cls}: {rate}%")
     print(f"Avg arrival delay (satisfied): {results['avg_arrival_delay_satisfied']} minutes")
-    print(f"Avg arrival delay (not satisfied): {results['avg_arrival_delay_unsatisfied']} minutes")
+    print(
+        f"Avg arrival delay (neutral/dissatisfied): {results['avg_arrival_delay_unsatisfied']} minutes"
+    )
     print(f"Top travel type among satisfied passengers: {results['top_satisfied_travel_type']}")
 
 

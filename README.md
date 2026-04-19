@@ -16,5 +16,5 @@ python datamining.py
 The script prints:
 - overall satisfaction rate
 - satisfaction rate by class
-- arrival-delay comparison between satisfied vs not satisfied passengers
+- arrival-delay comparison between satisfied vs neutral/dissatisfied passengers
 - most common travel type among satisfied passengers

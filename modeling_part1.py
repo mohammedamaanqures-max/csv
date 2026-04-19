@@ -76,7 +76,7 @@ def infer_problem_type(y: pd.Series) -> str:
     if y.dtype.name in {"object", "category", "bool"}:
         return "classification"
 
-    unique_count = y.nunique(dropna=False)
+    unique_count = y.nunique(dropna=True)
     unique_ratio = unique_count / max(len(y), 1)
     if (
         unique_count <= MAX_UNIQUE_FOR_CLASSIFICATION
@@ -88,7 +88,11 @@ def infer_problem_type(y: pd.Series) -> str:
 
 def load_dataset(data_path: str, target_column: str) -> Tuple[pd.DataFrame, pd.Series]:
     df = pd.read_csv(data_path)
-    unnamed_cols = [col for col in df.columns if str(col).startswith("Unnamed") or str(col) == ""]
+    unnamed_cols = [
+        col
+        for col in df.columns
+        if str(col).startswith("Unnamed: ") or str(col).strip() == ""
+    ]
     if unnamed_cols:
         df = df.drop(columns=unnamed_cols)
 

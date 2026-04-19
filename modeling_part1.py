@@ -99,7 +99,7 @@ def load_dataset(data_path: str, target_column: str) -> Tuple[pd.DataFrame, pd.S
     X = df.drop(columns=[target_column])
 
     # Ensure any remaining categorical/object columns become numeric model inputs.
-    X = pd.get_dummies(X, drop_first=False)
+    X = pd.get_dummies(X, drop_first=True)
 
     return X, y
 
@@ -234,7 +234,7 @@ def main() -> None:
 
     print(f"Detected problem type: {problem_type}")
     print(f"Total samples: {len(X)}")
-    print(f"Total features after encoding checks: {X.shape[1]}")
+    print(f"Total features after one-hot encoding: {X.shape[1]}")
 
     stratify = y if problem_type == "classification" else None
     X_train, X_test, y_train, y_test = train_test_split(

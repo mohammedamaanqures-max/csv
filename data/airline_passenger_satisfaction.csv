@@ -1,0 +1,21 @@
+PassengerID,Gender,CustomerType,Age,TypeOfTravel,Class,FlightDistance,InflightWifiService,SeatComfort,FoodAndDrink,OnboardService,DepartureDelayMinutes,ArrivalDelayMinutes,Satisfaction
+1,Female,Loyal Customer,42,Business travel,Business,1200,4,5,4,5,5,2,satisfied
+2,Male,Disloyal Customer,25,Personal Travel,Economy,600,2,3,2,3,20,18,neutral or dissatisfied
+3,Female,Loyal Customer,36,Business travel,Business,1500,5,5,4,5,0,0,satisfied
+4,Male,Loyal Customer,52,Business travel,Economy Plus,900,3,4,3,4,12,10,satisfied
+5,Female,Disloyal Customer,29,Personal Travel,Economy,450,2,2,2,2,35,40,neutral or dissatisfied
+6,Male,Loyal Customer,47,Business travel,Business,2100,5,5,5,5,3,1,satisfied
+7,Female,Loyal Customer,33,Personal Travel,Economy Plus,700,3,3,3,3,10,8,neutral or dissatisfied
+8,Male,Disloyal Customer,22,Personal Travel,Economy,300,1,2,1,2,50,47,neutral or dissatisfied
+9,Female,Loyal Customer,40,Business travel,Business,1700,4,5,4,4,0,0,satisfied
+10,Male,Loyal Customer,58,Business travel,Business,2300,5,5,5,5,6,4,satisfied
+11,Female,Disloyal Customer,31,Personal Travel,Economy,520,2,3,2,3,28,25,neutral or dissatisfied
+12,Male,Loyal Customer,45,Business travel,Economy Plus,1100,4,4,3,4,8,6,satisfied
+13,Female,Loyal Customer,27,Personal Travel,Economy Plus,650,3,3,3,3,15,14,neutral or dissatisfied
+14,Male,Disloyal Customer,34,Business travel,Economy,980,2,3,2,3,22,20,neutral or dissatisfied
+15,Female,Loyal Customer,50,Business travel,Business,1900,5,5,4,5,2,1,satisfied
+16,Male,Loyal Customer,38,Business travel,Business,1400,4,4,4,4,4,3,satisfied
+17,Female,Disloyal Customer,24,Personal Travel,Economy,410,1,2,2,2,42,38,neutral or dissatisfied
+18,Male,Loyal Customer,43,Business travel,Economy Plus,1000,3,4,3,4,9,7,satisfied
+19,Female,Loyal Customer,35,Business travel,Business,1600,4,5,4,5,1,0,satisfied
+20,Male,Disloyal Customer,30,Personal Travel,Economy,560,2,3,2,3,25,22,neutral or dissatisfied

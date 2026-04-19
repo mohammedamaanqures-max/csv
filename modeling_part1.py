@@ -14,6 +14,11 @@ from sklearn.impute import SimpleImputer
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
+MAX_UNIQUE_FOR_CLASSIFICATION = 20
+MAX_UNIQUE_RATIO_FOR_CLASSIFICATION = 0.05
+DEFAULT_LASSO_ALPHA = 0.01
+DEFAULT_RF_ESTIMATORS = 300
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -73,7 +78,10 @@ def infer_problem_type(y: pd.Series) -> str:
 
     unique_count = y.nunique(dropna=False)
     unique_ratio = unique_count / max(len(y), 1)
-    if unique_count <= 20 or unique_ratio <= 0.05:
+    if (
+        unique_count <= MAX_UNIQUE_FOR_CLASSIFICATION
+        or unique_ratio <= MAX_UNIQUE_RATIO_FOR_CLASSIFICATION
+    ):
         return "classification"
     return "regression"
 
@@ -90,7 +98,7 @@ def load_dataset(data_path: str, target_column: str) -> Tuple[pd.DataFrame, pd.S
     y = df[target_column]
     X = df.drop(columns=[target_column])
 
-    # Robust handling if encoded columns are still non-numeric dtypes.
+    # Ensure any remaining categorical/object columns become numeric model inputs.
     X = pd.get_dummies(X, drop_first=False)
 
     return X, y
@@ -142,7 +150,9 @@ def lasso_feature_selection(
             ]
         )
     else:
-        model = Lasso(alpha=0.01, random_state=random_state, max_iter=10000)
+        model = Lasso(
+            alpha=DEFAULT_LASSO_ALPHA, random_state=random_state, max_iter=10000
+        )
         pipeline = ImbPipeline(steps=[("scaler", StandardScaler()), ("model", model)])
 
     pipeline.fit(X_train, y_train)
@@ -171,14 +181,14 @@ def rf_feature_selection(
 ) -> pd.DataFrame:
     if problem_type == "classification":
         model = RandomForestClassifier(
-            n_estimators=300,
+            n_estimators=DEFAULT_RF_ESTIMATORS,
             random_state=random_state,
             n_jobs=-1,
         )
         pipeline = ImbPipeline(steps=[("resampler", resampler), ("model", model)])
     else:
         model = RandomForestRegressor(
-            n_estimators=300,
+            n_estimators=DEFAULT_RF_ESTIMATORS,
             random_state=random_state,
             n_jobs=-1,
         )
